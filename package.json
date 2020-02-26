@@ -1,0 +1,27 @@
+{
+  "name": "mock-shop",
+  "version": "1.0.0",
+  "description": "**Mock Shop** is a simple shopping server. You are required to develop the backend API. \r You can fork this git repository and get to work!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nouwatinjacob/mock-shop.git"
+  },
+  "author": "jaysansa@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nouwatinjacob/mock-shop/issues"
+  },
+  "homepage": "https://github.com/nouwatinjacob/mock-shop#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
