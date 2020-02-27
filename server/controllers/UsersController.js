@@ -20,15 +20,14 @@ export default class UsersController {
           obj,
           ['email', 'password', 'firstName', 'lastName', 'password_confirmation', 'isAdmin']
         );
-        const validator = new Validator(userDetails,  Validations().userRules);
-        if (validator.passes()) {
+        const validation = new Validator(userDetails,  Validations().userRules);
+        if (validation.passes()) {
           const { email } = userDetails;
           const foundUser = await User.findOne({ where: { email } });
           if (!foundUser) {
             const newUser = await User.create(obj);
             const user = lodash.pick(
-              newUser,
-              ['id', 'email', 'isAdmin', 'firstName', 'lastName']
+              newUser, ['id', 'email', 'isAdmin']
             );
             const token = jwt.sign(user, secret, { expiresIn: 86400 });
             return res.status(201).json({
@@ -50,11 +49,11 @@ export default class UsersController {
         return res.status(400).json({
           status: 'error',
           data: {
-            message: validator.errors.all()
+            message: validation.errors.all()
           }
         }); 
       } catch (error) {
-        return res.status(400).json({
+        return res.status(500).json({
           status: 'error',
           data: {
             message: 'Error processing request', error: error.toString()
@@ -62,4 +61,55 @@ export default class UsersController {
         });
     };
 };
+
+  static async userSignin(req, res) {
+    try {
+      const { email, password } = req.body;
+      const validation = new Validator(req.body, Validations().signinRules);
+      if (validation.passes()) {
+        const userExist = await User.findOne({ where: { email } });
+        if (userExist) {
+          const verifyPassword = userExist.comparePassword(userExist, password);
+          if (!verifyPassword) {
+            return res.status(400).json({
+              status: 'error',
+              data: {
+                message: 'Invalid login credentials'
+              }
+            });
+          }
+          const user = lodash.pick(userExist, ['id', 'email', 'isAdmin']);
+          const token = jwt.sign(user, secret);
+          return res.status(200).json({
+            status: 'success',
+            data: {
+              message: 'Log in successful',
+              token,
+              user
+            }
+          });
+        }
+        return res.status(404).json({
+          status: 'error', 
+          data: {
+          message: 'Invalid credentials'
+        }
+      });
+      }
+      return res.status(400).json({
+        status: 'error',
+        data: {
+          message: validation.errors.all()
+        }
+      });
+    } catch (error) {
+      return res.status(500).json({
+        status: 'error',
+        data: {
+          message: 'Error processing request', error: error.toString()
+        }
+      });
+    }
+  }
+
 };

@@ -7,6 +7,11 @@ const Validations = () => ({
       lastName: 'required|min:3|string|max:20',
       isAdmin: 'required|boolean'
     },
+    signinRules: {
+      email: 'required|email',
+      password: 'required'
+    }
   });
+
   
 export default Validations;
