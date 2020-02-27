@@ -10,6 +10,14 @@ const Validations = () => ({
     signinRules: {
       email: 'required|email',
       password: 'required'
+    },
+    productRules: {
+      name: 'required|string',
+      description: 'required|string',
+      price: 'required|numeric',
+      category: 'required|string',
+      inStock: 'required|boolean',
+      imageUrl: 'required|url'
     }
   });
 

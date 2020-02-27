@@ -1,5 +1,6 @@
 
 import userRoutes from './userRoutes';
+import productRoutes from './productRoutes';
 
 const routes = (router) => {
     router.route('/')
@@ -9,6 +10,8 @@ const routes = (router) => {
 
     /* Users Routes */
     userRoutes(router);
+
+    productRoutes(router);
     
     };
 
