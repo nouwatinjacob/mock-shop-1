@@ -12,12 +12,12 @@ const cartModel = (sequelize, DataTypes) => {
   });
   Cart.associate = (models) => {
     // associations can be defined here
-    // Cart.hasMany(models.Product, {
-    //   as: 'product'
-    // });
-    // Cart.belongsTo(models.User, {
-    //   foreignKey: 'userId'
-    // });
+    Cart.belongsTo(models.Product, {
+      foreignKey: 'productId'
+    });
+    Cart.belongsTo(models.User, {
+      foreignKey: 'userId'
+    });
   };
   return Cart;
 };

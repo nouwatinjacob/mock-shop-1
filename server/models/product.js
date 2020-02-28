@@ -29,10 +29,6 @@ const productModel = (sequelize, DataTypes) => {
   
   Product.associate = (models) => {
     // associations can be defined here
-    // Product.belongsTo(models.Cart, {
-    //   foreignKey: 'productId',
-    //   onDelete: 'CASCADE'
-    // });
   };
   return Product;
 };

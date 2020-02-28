@@ -73,9 +73,7 @@ export default class UsersController {
           if (!verifyPassword) {
             return res.status(400).json({
               status: 'error',
-              data: {
-                message: 'Invalid login credentials'
-              }
+              error: 'Invalid login credentials'
             });
           }
           const user = lodash.pick(userExist, ['id', 'email', 'isAdmin']);
@@ -90,24 +88,18 @@ export default class UsersController {
           });
         }
         return res.status(404).json({
-          status: 'error', 
-          data: {
-          message: 'Invalid credentials'
-        }
+          status: 'error',
+          error: 'Invalid credentials'
       });
       }
       return res.status(400).json({
         status: 'error',
-        data: {
-          message: validation.errors.all()
-        }
+        error: validation.errors.all()
       });
     } catch (error) {
       return res.status(500).json({
         status: 'error',
-        data: {
-          message: 'Error processing request', error: error.toString()
-        }
+        error: 'Error processing request', error: error.toString()
       });
     }
   }
