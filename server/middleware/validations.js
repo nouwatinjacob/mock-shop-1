@@ -18,6 +18,9 @@ const Validations = () => ({
       category: 'required|string',
       inStock: 'required|boolean',
       imageUrl: 'required|url'
+    },
+    cartRules: {
+      productId: 'required|integer'
     }
   });
 

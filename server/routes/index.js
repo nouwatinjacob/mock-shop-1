@@ -1,6 +1,7 @@
 
 import userRoutes from './userRoutes';
 import productRoutes from './productRoutes';
+import cartRoutes from './cartRoutes';
 
 const routes = (router) => {
     router.route('/')
@@ -8,11 +9,12 @@ const routes = (router) => {
         message: 'Welcome to the mock-shop API!',
       }));
 
-    /* Users Routes */
     userRoutes(router);
 
     productRoutes(router);
-    
+
+    cartRoutes(router);
+
     };
 
 export default routes;

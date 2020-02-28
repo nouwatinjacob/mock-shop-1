@@ -6,7 +6,7 @@ import generatePagination from '../utils/helpers';
 
 dotenv.config();
 
-const { Product, User } = db;
+const { Product } = db;
 
 
 export default class ProductsController {
@@ -26,17 +26,12 @@ export default class ProductsController {
             }
             return res.status(400).json({
                 status: 'error',
-                data: {
-                    message: validation.errors.all()
-                }
+                error: validation.errors.all()
             });
         } catch (error) {
             return res.status(500).json({
                 status: 'error',
-                data: {
-                    message: 'Error processing request',
-                    error: error.toString()
-                }
+                error: error.toString()
             });
         }
     }
@@ -57,9 +52,7 @@ export default class ProductsController {
             if (!products) {
               return res.status(404).json({
                   status: 'error',
-                  data: {
-                    message: 'No product found'
-                  }
+                  error: 'No product found'
               });
             }
             return res.status(200).json({
@@ -73,10 +66,7 @@ export default class ProductsController {
           } catch (error) {
             return res.status(500).json({
                 status: 'error',
-                data: {
-                    message: 'Error processing request',
-                    error: error.toString()
-                }
+                error: error.toString()
             });
           }
     }
@@ -87,9 +77,7 @@ export default class ProductsController {
             if (!(Number.isInteger(productId)) && (Number.isNaN(productId))) {
               return res.status(400).json({
                 status: 'error',
-                data: {
-                    message: 'Provide valid meal id'
-                }
+                error: 'Provide valid meal id'
               });
             }
             const product = await Product.findByPk(productId);
@@ -107,17 +95,12 @@ export default class ProductsController {
             }
             return res.status(404).json({
               status: 'error',
-              data: {
-                message: 'Product not found'
-              }
+              error: 'Product not found'
             });
           } catch (error) {
             return res.status(500).json({
               status: 'error',
-              data: {
-                message: 'Error processing request',
-                error: error.toString()
-              }
+              error: error.toString()
             });
           }
     }
@@ -131,9 +114,7 @@ export default class ProductsController {
                 if (!(Number.isInteger(productId)) && (Number.isNaN(productId))) {
                 return res.status(400).json({
                     status: 'error',
-                    data: {
-                        message: 'Provide valid product id'
-                    }
+                    error: 'Provide valid product id'
                 });
                 }
                 const productExist = await Product.findByPk(productId);
@@ -156,25 +137,18 @@ export default class ProductsController {
                 }
                 return res.status(404).send({
                     status: 'error',
-                    data: {
-                        message: 'Product Not Found'
-                    }
+                    error: 'Product Not Found'
                   });
             }
             return res.status(400).json({
                 status: 'error',
-                data: {
-                    message: validation.errors.all()
-                }
+                error: validation.errors.all()
               });
         }
         catch (error) {
             return res.status(500).json({
                 status: 'error',
-                data: {
-                  message: 'Error processing request',
-                  error: error.toString()
-                }
+                error: error.toString()
               });
         }
     }

@@ -1,4 +1,4 @@
-import productsController from '../controllers/productsController';
+import productsController from '../controllers/ProductsController';
 import AuthMiddleware from '../middleware/AuthMiddleware';
 
 const productRoutes = (router) => {
